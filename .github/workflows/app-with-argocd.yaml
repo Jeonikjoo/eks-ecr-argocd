@@ -82,7 +82,7 @@ jobs:
           
     - name: Set up Image
       run: |
-        sed -i "s%image: ${{ secrets.ECR_ID }}.dkr.ecr.${{ secrets.REGION }}.amazonaws.com/${{ secrets.ECR_PRIVATE_REPOSITORY }}:[A-z0-9]*%image: ${{ secrets.ECR_ID }}.dkr.ecr.${{ secrets.REGION }}.amazonaws.com/${{ secrets.ECR_PRIVATE_REPOSITORY }}:${{ github.sha }}%" ./manifest/app.yaml
+        sed -i "s%image: ${{ secrets.ECR_ID }}.dkr.ecr.${{ secrets.REGION }}.amazonaws.com/${{ secrets.ECR_PRIVATE_REPOSITORY }}:[A-z0-9]*%image: ${{ secrets.ECR_ID }}.dkr.ecr.${{ secrets.REGION }}.amazonaws.com/${{ secrets.ECR_PRIVATE_REPOSITORY }}:${{ github.sha }}%" ./manifest/app-eks.yaml
         
     - name: Commit and push changes
       run: |
