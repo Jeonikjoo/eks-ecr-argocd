@@ -1,0 +1,6 @@
+/home/runner/work/app-with-argocd/app-with-argocd/src/main/java/app/AppApplication.java
+/home/runner/work/app-with-argocd/app-with-argocd/src/main/java/app/api/controller/StudentController.java
+/home/runner/work/app-with-argocd/app-with-argocd/src/main/java/app/api/controller/testController.java
+/home/runner/work/app-with-argocd/app-with-argocd/src/main/java/app/entity/Student.java
+/home/runner/work/app-with-argocd/app-with-argocd/src/main/java/app/repository/StudentRepository.java
+/home/runner/work/app-with-argocd/app-with-argocd/src/main/java/app/service/StudentService.java

@@ -1,0 +1,108 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+spec:
+  selector:
+    app: mysql
+  type: ClusterIP
+  clusterIP: None
+  ports:
+  - protocol: TCP
+    port: 3306
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: db-pv
+  labels:
+    type: local
+spec:
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 500Mi
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: db-storage
+  hostPath:
+    path: /mysql/data
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: db-pvc
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 30Mi
+  storageClassName: db-storage
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: db-secret-info
+type: Opaque
+data:
+  MYSQL_ROOT_PASSWORD: azhzMTIzNDUK
+  MYSQL_DATABASE: YXBwCg==
+  MYSQL_USER: YXBwCg==
+  MYSQL_PASSWORD: YXBwMTIzNDUK
+
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: db-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql-container
+          image: mysql
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom: 
+                secretKeyRef:
+                  name: db-secret-info
+                  key: MYSQL_ROOT_PASSWORD
+            - name: MYSQL_DATABASE
+              valueFrom: 
+                secretKeyRef:
+                  name: db-secret-info
+                  key: MYSQL_DATABASE
+            - name: MYSQL_USER
+              valueFrom: 
+                secretKeyRef:
+                  name: db-secret-info
+                  key: MYSQL_USER
+            - name: MYSQL_PASSWORD
+              valueFrom: 
+                secretKeyRef:
+                  name: db-secret-info
+                  key: MYSQL_PASSWORD
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: mysqldata
+      volumes:
+        - name: mysqldata
+          persistentVolumeClaim:
+            claimName: db-pvc

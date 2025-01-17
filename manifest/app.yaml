@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Service   
+metadata:
+  name: app-with-argocd-service
+spec:
+  selector:
+    app.kubernetes.io/name: app-with-argocd-deployment
+  type: NodePort
+  ports:
+  - protocol: TCP
+    nodePort: 31080
+    port: 8080
+    targetPort: 8080
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-with-argocd-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: app-with-argocd-deployment
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: app-with-argocd-deployment
+    spec:
+      containers:
+      - name: app-with-argocd-container
+        image: zza1541/app-with-argocd:3d1b80c638c7e625d4ef595f259e35ddf495e620
+        ports:
+          - protocol: TCP
+            containerPort: 8080
