@@ -9,7 +9,7 @@ on:
       - 'manifest/**'
 
 jobs:
-  ci:
+  ci: 
     runs-on: ubuntu-latest
 
     steps:
