@@ -76,7 +76,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
       with:
-          repository: Jeonikjoo/Jeonikjoo/eks-ecr-argocd
+          repository: Jeonikjoo/eks-ecr-argocd
           ref: main
           token: ${{ secrets.TOKEN }}
           
