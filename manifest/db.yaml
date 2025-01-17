@@ -24,8 +24,8 @@ spec:
   ports:
   - protocol: TCP
     nodePort: 31081
-    port: 8080
-    targetPort: 8080
+    port: 3306
+    targetPort: 3306
 
 ---
 
