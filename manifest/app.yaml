@@ -5,7 +5,7 @@ metadata:
 spec:
   selector:
     app.kubernetes.io/name: app-with-argocd-deployment
-  type: NordPort
+  type: NodePort
   ports:
   - protocol: TCP
     nodePort: 31080
