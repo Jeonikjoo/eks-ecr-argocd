@@ -84,7 +84,7 @@ jobs:
       run: |
         sed -i "s%image: ${{ secrets.ECR_ID }}.dkr.ecr.${{ secrets.REGION }}.amazonaws.com/${{ secrets.ECR_PRIVATE_REPOSITORY }}:[A-z0-9]*%image: ${{ secrets.ECR_ID }}.dkr.ecr.${{ secrets.REGION }}.amazonaws.com/${{ secrets.ECR_PRIVATE_REPOSITORY }}:${{ github.sha }}%" ./manifest/app.yaml
         
-    - name: Commit and push changes 
+    - name: Commit and push changes
       run: |
         git config --local user.email ${{ secrets.EMAIL }}
         git config --local user.name ${{ secrets.USERNAME }}
